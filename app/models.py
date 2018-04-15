@@ -12,13 +12,22 @@ class User(db.Model):
     #Columns
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, nullable=False, unique=True, index=True)
-    #Temporary storing passwords without hashing
-    password_plain = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
 
-    def __init__(self, email, password_plain):
-        self.email = email
-        self.password_plain = password_plain
+    @property
+    def password(self):
+        '''Prevent password from being accessed'''
+        raise AttributeError('password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        '''Set password hash'''
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        '''Verify password hash'''
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User {0}>'.format(self.name)
+        return '<User {0}>'.format(self.email)
 
