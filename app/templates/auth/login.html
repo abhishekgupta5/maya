@@ -8,6 +8,10 @@
   {{ utils.flashed_messages() }}
   <br/>
   <div class="center">
+  <p>
+  New user ? Register for an account
+  <a href="{{ url_for('auth.register') }}"> Click here to register </a>
+  </p>
     <h1>Login to your account</h1>
     <br/>
     {{ wtf.quick_form(form) }}
