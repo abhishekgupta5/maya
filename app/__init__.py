@@ -14,6 +14,7 @@ db = SQLAlchemy()
 #Initializing login manager object
 login_manager = LoginManager()
 
+
 def create_app(config_name):
     #App config details
     app = Flask(__name__, instance_relative_config=True)
@@ -35,4 +36,8 @@ def create_app(config_name):
     #Registering Blueprints
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    from .home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
+
     return app
