@@ -3,11 +3,16 @@
 #3rd party Imports
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 #Local imports
 from config import app_config
 
 #Initializing db object
 db = SQLAlchemy()
+
+#Initializing login manager object
+login_manager = LoginManager()
 
 def create_app(config_name):
     #App config details
@@ -18,10 +23,14 @@ def create_app(config_name):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     #Initializing database
     db.init_app(app)
+    #Initializing login manager
+    login_manager.init_app(app)
+    login_manager.session_protection='strong'
+    login_manager.login_view = 'auth.login'
+    #Initialize flask_bootstrap
+    Bootstrap(app)
+
     from app import models
-    @app.route('/')
-    def test_server():
-        return 'Testing flask'
 
     #Registering Blueprints
     from .auth import auth as auth_blueprint

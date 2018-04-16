@@ -1,7 +1,9 @@
 #app/models.py
 
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
+from app import login_manager
 
 class User(db.Model):
     '''
@@ -11,8 +13,10 @@ class User(db.Model):
 
     #Columns
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, nullable=False, unique=True, index=True)
+    username = db.Column(db.String(64), nullable=False, unique=True, index=True)
+    email = db.Column(db.String(64), nullable=False, unique=True, index=True)
     password_hash = db.Column(db.String(128), nullable=False)
+    #role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     @property
     def password(self):
@@ -31,3 +35,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User {0}>'.format(self.email)
 
+#Setting up user loader
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
