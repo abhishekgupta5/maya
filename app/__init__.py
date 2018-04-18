@@ -5,15 +5,16 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from flask_mail import Mail
 #Local imports
 from config import app_config
 
 #Initializing db object
 db = SQLAlchemy()
-
 #Initializing login manager object
 login_manager = LoginManager()
-
+#Initializing the mail object
+mail = Mail()
 
 def create_app(config_name):
     #App config details
@@ -30,6 +31,9 @@ def create_app(config_name):
     login_manager.login_view = 'auth.login'
     #Initialize flask_bootstrap
     Bootstrap(app)
+
+    #Initializing mail
+    mail.init_app(app)
 
     from app import models
 
