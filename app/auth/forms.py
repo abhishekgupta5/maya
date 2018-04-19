@@ -4,7 +4,6 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Valid
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp
 from ..models import User
 
-#    confirm = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
 
 class LoginForm(FlaskForm):
     """
@@ -43,3 +42,26 @@ class ChangePasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm new password', validators=[DataRequired(), EqualTo('password', message="Passwords must match")])
     submit = SubmitField('Update Password')
 
+class PasswordResetRequestForm(FlaskForm):
+    '''
+    Form to enter email while requesting for password reset
+    '''
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    submit = SubmitField('Reset Password')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first() is None:
+            raise ValidationError('You are not registered with us. Please register.')
+
+class PasswordResetForm(FlaskForm):
+    '''
+    Form to reset the password after email confirmation
+    '''
+    email = StringField('Email', validators=[DataRequired(), Email(), Length(1, 64)])
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm_password', message='Passwords must match.')])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
+    submit = SubmitField('Reset password')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first() is None:
+            raise ValidationError('Unknown email address. Please register')

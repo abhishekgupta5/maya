@@ -15,6 +15,7 @@
     <h1>Login to your account</h1>
     <br/>
     {{ wtf.quick_form(form) }}
+    <p>Forgot your password? <a href="{{ url_for('auth.password_reset_request') }}">Forgot password</a>.</p>
   </div>
 </div>
 {% endblock %}
