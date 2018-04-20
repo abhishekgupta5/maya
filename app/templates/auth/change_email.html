@@ -1,11 +1,15 @@
 <!-- app/templates/auth/change_email.html -->
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
 
 {% block title %}Maya - Change Email Address{% endblock %}
 
 {% block body %}
 <div class="page-header">
+<br/>
+{{ utils.flashed_messages() }}
+<br/>
     <h1>Change Your Email Address</h1>
 </div>
 <div class="col-md-4">

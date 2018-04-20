@@ -61,7 +61,7 @@ def register():
         send_email(user.email, 'Confirm your account', 'auth/email/confirm', user=user, token=token)
         flash('A confirmation email has been sent to you by email.')
         #Redirect to login page
-        return redirect(url_for('home.homepage'))
+        return redirect(url_for('auth.login'))
     #For GET requests, return register.html template
     return render_template('auth/register.html', form=form)
 

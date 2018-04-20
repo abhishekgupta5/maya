@@ -1,9 +1,14 @@
 <!-- app/templates/auth/unconfirmed.html -->
 {% extends "base.html" %}
-
+{% import "bootstrap/utils.html" as utils %}
 {% block title %}Maya - Confirm your account {% endblock %}
 
 {% block body %}
+<div class="content-section">
+  <br/>
+  {{ utils.flashed_messages() }}
+  <br/>
+</div>
 <div class="page-header">
   <h1>
     Hello, {{ current_user.username }}

@@ -1,9 +1,14 @@
 <!-- app/templates/home/index.html -->
 
 {% extends "base.html" %}
+{% import "bootstrap/utils.html" as utils %}
 {% block title %}Home{% endblock %}
 
 {% block body %}
+<div class="content-section">
+ <br/>
+ {{ utils.flashed_messages() }}
+ <br/>
 <div class="intro-header">
   <div class="container">
     <div class="row">
