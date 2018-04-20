@@ -15,17 +15,17 @@
  *  Password change/reset
  *  Cookie theft protection
 
+3. Templates
+ *  Basic Bootstrap magic added
+
 ### To-do
 
-1. Templates
- *  Add Jinja magic
-
-2. Setup
+1. Setup
  *  Containerize
  *  Deploy
  *  Automate
  *  Unit tests/CI tests
  *  Docs for local build
 
-3. Privileged Users
+2. Privileged Users
  *  Admin
